@@ -31,6 +31,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+<<<<<<< HEAD
+=======
+    lintOptions {
+        disable "Instantiatable"
+    }
+>>>>>>> 4f26aa5 (updated user location functionality and drawable objects(icons))
     buildToolsVersion '33.0.0'
 }
 
