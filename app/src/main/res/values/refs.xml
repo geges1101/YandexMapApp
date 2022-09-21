@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <drawable name="user_arrow" />
-    <drawable name="icon" />
-    <drawable name="search_result" />
-    <string name="user_location">User Location</string>
-</resources>
