@@ -27,26 +27,34 @@ import com.yandex.mapkit.user_location.UserLocationObjectListener;
 import com.yandex.mapkit.user_location.UserLocationView;
 import com.yandex.runtime.image.ImageProvider;
 
+import java.io.IOException;
+
 /**
  * В этом примере показывается карта и камера выставляется на указанную точку.
  * Не забудьте запросить необходимые разрешения.
  */
-public class MainActivity extends Activity implements UserLocationObjectListener{
+public class UserLocationActivity extends Activity implements UserLocationObjectListener{
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private final Point TARGET_LOCATION = new Point(55.7558, 37.6173);
-    private final String MAPKIT_API_KEY = "be7a15f2-1316-4082-ae3b-fe980de6cf48";
     private MapView mapView;
     private UserLocationLayer userLocationLayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String MAPKIT_API_KEY = null;
+        try {
+            MAPKIT_API_KEY = new APIkey("/Users/geges/Desktop/myKey").getMyAPIkey();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert MAPKIT_API_KEY != null;
         MapKitFactory.setApiKey(MAPKIT_API_KEY);
         MapKitFactory.initialize(this);
         // Создание MapView.
         setContentView(R.layout.user_location);
         super.onCreate(savedInstanceState);
         mapView = (MapView) findViewById(R.id.mapview);
-        mapView.getMap().setRotateGesturesEnabled(true);
+        mapView.getMap().setRotateGesturesEnabled(false);
         // Перемещение камеры в центр Москвы.
         mapView.getMap().move(
                 new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
@@ -56,6 +64,7 @@ public class MainActivity extends Activity implements UserLocationObjectListener
         requestLocationPermission();
 
         MapKit mapKit = MapKitFactory.getInstance();
+        mapKit.resetLocationManagerToDefault();
         userLocationLayer = mapKit.createUserLocationLayer(mapView.getMapWindow());
         userLocationLayer.setVisible(true);
         userLocationLayer.setHeadingEnabled(true);
