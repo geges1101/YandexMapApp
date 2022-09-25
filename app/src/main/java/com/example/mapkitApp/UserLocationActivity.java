@@ -28,6 +28,7 @@ import com.yandex.mapkit.user_location.UserLocationView;
 import com.yandex.runtime.image.ImageProvider;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * В этом примере показывается карта и камера выставляется на указанную точку.
@@ -41,14 +42,18 @@ public class UserLocationActivity extends Activity implements UserLocationObject
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String MAPKIT_API_KEY = null;
+        String key = "";
         try {
-            MAPKIT_API_KEY = new APIkey("/Users/geges/Desktop/myKey").getMyAPIkey();
+            InputStream inputStream = getAssets().open("myKey.txt");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+
+            key = new String(buffer);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assert MAPKIT_API_KEY != null;
-        MapKitFactory.setApiKey(MAPKIT_API_KEY);
+        MapKitFactory.setApiKey(key);
         MapKitFactory.initialize(this);
         // Создание MapView.
         setContentView(R.layout.user_location);
@@ -58,7 +63,7 @@ public class UserLocationActivity extends Activity implements UserLocationObject
         // Перемещение камеры в центр Москвы.
         mapView.getMap().move(
                 new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
-                new Animation(Animation.Type.SMOOTH, 5),
+                 new Animation(Animation.Type.SMOOTH, 5),
                 null);
 
         requestLocationPermission();
