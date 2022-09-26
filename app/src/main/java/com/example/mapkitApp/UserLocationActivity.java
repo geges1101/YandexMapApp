@@ -44,7 +44,7 @@ public class UserLocationActivity extends Activity implements UserLocationObject
     protected void onCreate(Bundle savedInstanceState) {
         String key = "";
         try {
-            InputStream inputStream = getAssets().open("myKey.txt");
+            InputStream inputStream = getAssets().open("myKey");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);
