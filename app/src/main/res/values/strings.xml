@@ -4,4 +4,7 @@
     <string name="user_location">User Location</string>
     <string name="app_name">YandexMapApp</string>
     <string name="package_name">com.yandex.mapkitdemo</string>
+    <string name="unknown_error_message" />
+    <string name="remote_error_message" />
+    <string name="network_error_message" />
 </resources>
